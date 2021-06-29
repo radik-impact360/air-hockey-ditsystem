@@ -1,0 +1,62 @@
+{
+  "keys": {
+    "accessKey": "DCDA18CFF2FA2233E4C067BF85DF62295083EA3E",
+    "secretKey": "2420B285A8DF46FA43B564286CB40A32D10D5010"
+  },
+  "applicationId": "5a7ab5aebdfdb80020d7dcba",
+  "params": [
+    {
+      "options": {
+        "countermeasures": {
+          "customCallback": "window.dba.dlwf"
+        },
+        "domains": [
+          "cdn-factory.marketjs.com"
+        ]
+      },
+      "name": "domainLock"
+    },
+    {
+      "name": "duplicateLiteralsRemoval"
+    },
+    {
+      "name": "functionOutlining"
+    },
+    {
+      "name": "functionReordering"
+    },
+    {
+      "name": "booleanToAnything"
+    },
+    {
+      "name": "numberToString"
+    },
+    {
+      "name": "charToTernaryOperator"
+    },
+    {
+      "name": "identifiersRenaming"
+    },
+    {
+      "name": "whitespaceRemoval"
+    },
+    {
+      "name": "variableGrouping"
+    }
+  ],
+  "areSubscribersOrdered": false,
+  "applicationTypes": {
+    "webBrowserApp": true,
+    "desktopApp": false,
+    "serverApp": false,
+    "hybridMobileApp": false,
+    "javascriptNativeApp": false,
+    "html5GameApp": false
+  },
+  "languageSpecifications": {
+    "es5": true,
+    "es6": false,
+    "es7": false
+  },
+  "useRecommendedOrder": true
+}
