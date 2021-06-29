@@ -163,7 +163,7 @@ compile_test_game (){
 
     echo "Compiling game.css for testing ..."
     sh css-append.sh
-    sh css-minify.sh temp.css > game.css
+    sh css-minify.sh temp.css game.css
     sed -i.bak 's/..\/..\/..\/..\/..\/..\///g' game.css
     rm temp.css
     rm *.bak
@@ -267,7 +267,6 @@ while getopts "l:bnahg:" opt; do
         bake
         prep_production $3
         compile_test_game
-        secure_strong
       ;;
     n)
         deploy --new $3

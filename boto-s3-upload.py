@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
  MarketJS Amazon S3 Deployment System
  -----------------------------------------------------------------------
@@ -15,9 +16,9 @@ from boto.s3.key import Key
 
 """ OWN SERVER """
 # To access, goto http://s3-ap-southeast-1.amazonaws.com/marketjs-lab3/en/game_folder/index.html
-conn = S3Connection('AKIAI5MNR6T6D6QAMUHQ', 'M2JhajpRNqoJgMHwYnYTE+It5NnD5HKrkWYboIUx',host="s3-ap-southeast-1.amazonaws.com") # Jakarta
-BUCKET_NAME = 'marketjs-lab3'
-GAME_NAME = os.path.split(os.getcwd())[-1] # same as folder name
+conn = S3Connection(os.environ['AWS_ACCESS_KEY_ID'],os.environ['AWS_SECRET_ACCESS_KEY'],host="s3-ap-southeast-1.amazonaws.com") # Jakarta
+BUCKET_NAME = 'marketjs-dit-systems'
+GAME_NAME = os.path.split(os.getcwd())[-1] + '-test' # same as folder name
 LANGUAGE_CODE = None
 
 BUCKET = conn.get_bucket(BUCKET_NAME)
@@ -67,9 +68,9 @@ def uploadResultToS3(bucket,game_folder_name,srcDir):
 	k = Key(b)
 	
 	""" PATTERN MATCHING """	
-	file_pattern = re.compile(r'.*\.(md$|aif$|tiff$|au$|psd$|xcf$|sh$|py$|php$|bat$|git$|txt$|jar$|DS_Store)')
-	folder_pattern = re.compile(r'.*(/glue/|/lib/|/tools/|git)')
-	folder_pattern_windows = re.compile(r'.*(\\glue\\|\\lib\\|\\tools\\|git)')
+	file_pattern = re.compile(r'.*\.(md$|aif$|tiff$|au$|psd$|xcf$|sh$|py$|pyc$|php$|bat$|git$|gitignore$|gitkeep$|tm_properties$|txt$|jar$|DS_Store$)')
+	folder_pattern = re.compile(r'.*(/node_modules/|/node_modules|/glue/|/glue|/doc/|/doc|/config/|/config|/lib/|/lib|/tools/|/tools|/git/|/git|/.git/|/.git)')
+	folder_pattern_windows = re.compile(r'.*(\\node_modules\\|\\node_modules|\\glue\\|\\glue|\\doc\\|\\doc|\\config\\|\\config|\\lib\\|\\lib|\\tools\\|\\tools|\\git\\|\\git|\\.git\\|\\.git)')
 
 	""" UPLOAD SETTINGS """
 	day_freshness = 1
@@ -95,10 +96,10 @@ def uploadResultToS3(bucket,game_folder_name,srcDir):
 				delta = datetime.now()-last_modified_time
 				
 				if upload_all:
-					upload(k,b,game_folder_name,path,file,srcDir,LANGUAGE_CODE)					
+					upload(k,b,game_folder_name,path,file.decode('utf8'),srcDir,LANGUAGE_CODE)					
 				else:					
 					if delta.days < day_freshness and delta.seconds < seconds_freshness:
-						upload(k,b,game_folder_name,path,file,srcDir,LANGUAGE_CODE)
+						upload(k,b,game_folder_name,path,file.decode('utf8'),srcDir,LANGUAGE_CODE)
 						
 def upload(k,b,game_folder_name,path,file,srcDir,language_code):		
 	print 'Preparing bucket for upload'	
